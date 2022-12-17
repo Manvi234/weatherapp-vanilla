@@ -1,3 +1,26 @@
+function format_time(timestamp) {
+  let date = new Date(timestamp);
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[date.getDay()];
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  return ` ${day}   ${hours}:${minutes}`;
+}
 function displayTemperature(response) {
   console.log(response.data);
   let temperatureElement = document.querySelector("#temperature");
@@ -9,9 +32,12 @@ function displayTemperature(response) {
   let humidityElement = document.querySelector("#humidity");
   humidityElement.innerHTML = response.data.main.humidity + " %";
   let windElement = document.querySelector("#wind");
-  windElement.innerHTML = response.data.wind.speed + " km/hr";
-  feels_likeElement = document.querySelector("#feels_like");
-  feels_likeElement.innerHTML = response.data.main.feels_like;
+  windElement.innerHTML = Math.round(response.data.wind.speed) + " km/hr";
+  let feels_likeElement = document.querySelector("#feels_like");
+  feels_likeElement.innerHTML =
+    Math.round(response.data.main.feels_like) + "°C";
+  let dateElement = document.querySelector("#date");
+  dateElement.innerHTML = format_time(response.data.dt * 1000);
 }
 
 let apiKey = `001bc651977f4b024af4d84282b0f02a`;
