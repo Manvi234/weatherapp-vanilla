@@ -15,26 +15,34 @@
   </head>
   <body>
     <div class="container">
+      <div class="weather-app-wrapper">
       <div class="weather-app">
-        <h1>New York</h1>
-        <ul>
-          <li>Friday 5:00pm</li>
-          <li>Clear</li>
-        </ul>
-        <div class="row">
-          <div class="col-6">
-            <img
-              src="https://ssl.gstatic.com/onebox/weather/48/sunny.png"
-              alt="Clear"
-            />
-            12 °C|°F
+        <div class="overview">
+        
+          <h1>New York</h1>
+          <ul>
+            <li>Friday 5:00pm</li>
+            <li>Clear</li>
+          </ul>
           </div>
-          <div class="col">
-            <ul>
-              <li>Precipitation:0%</li>
-              <li>Humidity:77%</li>
-              <li>Wind:8km/hr</li>
-            </ul>
+          <div class="row">
+            <div class="col-6">
+              
+             <div class="d-flex weather-temperature">
+              <img src="https://ssl.gstatic.com/onebox/weather/48/sunny.png" alt="Clear" id="icon" />
+             <div>
+            <strong id="temperature">12</strong
+            > <span class="units"> °C | <a href="#">°F</a></span>
+           </div>
+           </div>
+            </div>
+            <div class="col">
+              <ul>
+                <li>Precipitation:0%</li>
+                <li>Humidity:77%</li>
+                <li>Wind:8km/hr</li>
+              </ul>
+            </div>
           </div>
         </div>
         <small>
@@ -42,6 +50,7 @@
             >Open-Source Code by</a
           ><span> Manvi Gawande</span>
         </small>
+      </div>
       </div>
     </div>
     <script
