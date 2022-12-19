@@ -21,6 +21,12 @@ function format_time(timestamp) {
   }
   return ` ${day}   ${hours}:${minutes}`;
 }
+function format_day(timestamp) {
+  let week_date = new Date(timestamp * 1000);
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  let day = days[week_date.getDay()];
+  return day;
+}
 function getForecast(coordinates) {
   let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
@@ -82,22 +88,30 @@ function showCelsiusTemp(event) {
 
 function displayForecast(response) {
   console.log(response.data.daily);
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#weather-forecast");
   let forecastHTML = `<div class="row">`;
-  let days = ["Mon", "Tue", "Wed", "Thurs", "Fri"];
-  days.forEach(function (days) {
-    forecastHTML =
-      forecastHTML +
-      `<div class="col-2">
+  forecast.forEach(function (forecastDays, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `<div class="col-2">
                 <div class="weather-forecast-date">
-              ${days}
+              ${format_day(forecastDays.dt)}
               </div>
-              <img src="https://openweathermap.org/img/wn/01n@2x.png" alt="" width="42px">
+              <img src="https://openweathermap.org/img/wn/${
+                forecastDays.weather[0].icon
+              }@2x.png" alt="" width="42px">
               <div class="weather-forecast-temperatures">
-              <span class="weather-forecast-temperature-max">18°</span> <span class="weather-forecast-temperature-min">12°</span>
+              <span class="weather-forecast-temperature-max">${Math.round(
+                forecastDays.temp.max
+              )}°</span> <span class="weather-forecast-temperature-min">${Math.round(
+          forecastDays.temp.min
+        )}°</span>
               </div>
           </div>
           `;
+    }
   });
 
   forecastHTML =
